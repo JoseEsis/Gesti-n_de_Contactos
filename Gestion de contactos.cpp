@@ -11,7 +11,7 @@ struct contactoEmail
     string email;
     string nacionalidad;
 };
-void agregar(contactoEmail contacto[], int &cantidad)
+void agregarContacto(contactoEmail contacto[], int &cantidad)
 {
     cin.ignore();
     cout<<"Ingrese los nombres completos: ";
@@ -47,6 +47,21 @@ void eliminarContacto(contactoEmail contacto[], int &cantidad, string nombre)
         }
     }
 }
+void mostrarContactos(contactoEmail contacto[], int &cantidad) 
+{
+    for (int i=0; i<cantidad; i++) 
+	{
+        cout<<"\nCONTACTO " <<i+1<<endl;
+        cout<<"Nombre: " <<contacto[i].nombresCompletos<<endl;
+        cout<<"Genero: " <<contacto[i].genero<<endl;
+        cout<<"Edad: " <<contacto[i].edad<<endl;
+        cout<<"Telefono: " <<contacto[i].numeroTelefonico<<endl;
+        cout<<"Email: " <<contacto[i].email<<endl;
+        cout<<"Nacionalidad: " <<contacto[i].nacionalidad<<endl;
+        cout<<"______________________________________________"<<endl;
+        cout<<endl;
+    }
+}
 
 
 int main() 
@@ -76,8 +91,8 @@ int main()
 		{
             case 'a': 
 			{
-				cout<<"\nAGREGAR CONTACTO: "<<endl;
-				agregar(contacto, cantidad);
+				cout<<"\nAGREGAR CONTACTO(haga enter para ingresar los datos): "<<endl;
+				agregarContacto(contacto, cantidad);
                 break;
 
             }
@@ -88,6 +103,12 @@ int main()
                 cout<<"Ingrese el nombre completo del contacto a eliminar: ";
                 getline(cin, nombre);
                 eliminarContacto(contacto, cantidad, nombre);
+                break;
+            }
+            case 'c': 
+			{
+                cout<<"\nLISTADO GENERAL DE LOS CONTACTOS REGISTRADOS:"<<endl;
+                mostrarContactos(contacto, cantidad);
                 break;
             }
         }
