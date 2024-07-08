@@ -31,14 +31,34 @@ void agregar(contactoEmail contacto[], int &cantidad)
 
     cout<<"\nContacto agregado correctamente."<< endl;
 }
+void eliminarContacto(contactoEmail contacto[], int &cantidad, string nombre) 
+{
+    for (int i=0; i<cantidad; i++) 
+	{
+        if (contacto[i].nombresCompletos==nombre) 
+		{
+            for (int j=i; j<cantidad-1; j++) 
+			{
+                contacto[j]=contacto[j+1];
+            }
+            cantidad--;
+            cout<<"Contacto eliminado." << endl;
+            break;
+        }
+    }
+}
 
 
 int main() 
 {
     char opcion;
     const int TAM = 100;
-    int cantidad = 0;
-    contactoEmail contacto[TAM];
+    int cantidad = 3;
+    contactoEmail contacto[TAM]= {
+	{"Percy Jackson", "Masculino", 25, "123456789", "percy.jackson@gmail.com", "Colombiano"},
+	{"Marcos Garcia", "Masculino", 28, "123454321", "marcos.garcia@yahoo.com", "Mexicano"},
+	{"Maria Perez", "Femenina", 26, "13579246", "maria.perez@gmail.com"	}
+	};
     do 
 	{
         cout<<"\nGESTION DE CONTACTOS\n" << endl;
@@ -50,15 +70,25 @@ int main()
         cout<<endl;
         cout<<"Elija una opcion: ";
 		cin>>opcion;
+		cin.ignore();
 		cout<<endl;
 		switch(opcion)
 		{
             case 'a': 
 			{
-				cout<<"AGREGAR CONTACTO: "<<endl;
+				cout<<"\nAGREGAR CONTACTO: "<<endl;
 				agregar(contacto, cantidad);
                 break;
 
+            }
+            case 'b': 
+			{
+                cout<<"\nELIMINAR UN CONTACTO: "<<endl;
+                string nombre;
+                cout<<"Ingrese el nombre completo del contacto a eliminar: ";
+                getline(cin, nombre);
+                eliminarContacto(contacto, cantidad, nombre);
+                break;
             }
         }
     } while (opcion!='e');
