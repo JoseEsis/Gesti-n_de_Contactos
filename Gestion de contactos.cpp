@@ -62,6 +62,43 @@ void mostrarContactos(contactoEmail contacto[], int &cantidad)
         cout<<endl;
     }
 }
+string obtenerServidorCorreo(string &email) 
+{
+    size_t posicion=email.find('@');
+    if (posicion<email.length() && posicion!=email.length()-1) 
+	{
+        return email.substr(posicion + 1);
+    }
+    return "";
+}
+void mostrarOrdenadoPorCorreo(contactoEmail contacto[], int &cantidad) 
+{
+    for (int i=0; i<cantidad-1; i++) 
+	{
+        for (int j=0; j<cantidad-i-1; j++) 
+		{
+            string servidorActual = obtenerServidorCorreo(contacto[j].email);
+            string servidorSiguiente = obtenerServidorCorreo(contacto[j+1].email);
+            if (servidorActual>servidorSiguiente) 
+			{
+                contactoEmail temp = contacto[j];
+                contacto[j] = contacto[j + 1];
+                contacto[j + 1] = temp;
+            }
+        }
+    }
+    for (int i=0; i< cantidad; i++) 
+	{
+        cout<<"\nServidor: "<<obtenerServidorCorreo(contacto[i].email)<<endl;
+        cout<<"Nombre: "<<contacto[i].nombresCompletos<<endl;
+        cout<<"Genero: "<<contacto[i].genero<<endl;
+        cout<<"Edad: "<<contacto[i].edad<<endl;
+        cout<<"Telefono: "<<contacto[i].numeroTelefonico<< endl;
+        cout<<"Email: "<<contacto[i].email<<endl;
+        cout<<"Nacionalidad: "<<contacto[i].nacionalidad<< endl;
+        cout<<"______________________________________________"<< endl;
+    }    
+}
 
 
 int main() 
@@ -109,6 +146,22 @@ int main()
 			{
                 cout<<"\nLISTADO GENERAL DE LOS CONTACTOS REGISTRADOS:"<<endl;
                 mostrarContactos(contacto, cantidad);
+                break;
+            }
+            case 'd': 
+			{
+                cout<<"\nLISTADO DE CONTACTOS ORDENADOS POR SERVIDOR DE CORREO:"<<endl;
+                mostrarOrdenadoPorCorreo(contacto, cantidad);
+                break;
+            }
+            case 'e': 
+			{
+                cout<<"\nSaliendo del programa....."<<endl;
+                break;
+            }
+            default: 
+			{
+                cout<<"\nOpcion invalida "<<endl;
                 break;
             }
         }
